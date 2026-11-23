@@ -1,0 +1,506 @@
+
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#080b14">
+<title>Chatruletls</title>
+
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: #080b14;
+  color: white;
+  font-family: Arial, sans-serif;
+  min-height: 100vh;
+}
+
+header {
+  height: 75px;
+  padding: 0 7%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #0d1321;
+  border-bottom: 1px solid #202c42;
+}
+
+.logo {
+  font-size: 25px;
+  font-weight: 900;
+  letter-spacing: -1px;
+  color: #6688ff;
+}
+
+.logo span {
+  color: white;
+}
+
+.online {
+  color: #45e6a0;
+  font-size: 12px;
+  background: #10251f;
+  padding: 9px 13px;
+  border-radius: 30px;
+}
+
+main {
+  max-width: 850px;
+  margin: auto;
+  padding: 30px 18px;
+}
+
+.heading {
+  text-align: center;
+  margin-bottom: 25px;
+}
+
+.heading h1 {
+  font-size: 29px;
+  margin-bottom: 9px;
+}
+
+.heading p {
+  color: #8d9bb2;
+  font-size: 14px;
+}
+
+.video-container {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  background: linear-gradient(145deg,#151f34,#090e19);
+  border: 1px solid #293b5d;
+  border-radius: 22px;
+  overflow: hidden;
+  box-shadow: 0 15px 50px #0008;
+}
+
+#video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: none;
+  transform: scaleX(-1);
+}
+
+.placeholder {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.camera-icon {
+  width: 85px;
+  height: 85px;
+  border-radius: 25px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #202f50;
+  font-size: 38px;
+  margin-bottom: 20px;
+  box-shadow: 0 0 35px #476bff25;
+}
+
+.placeholder h2 {
+  font-size: 22px;
+  margin-bottom: 10px;
+}
+
+.placeholder p {
+  color: #8b9ab2;
+  font-size: 13px;
+}
+
+.video-tag {
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  padding: 9px 14px;
+  border-radius: 30px;
+  background: #0009;
+  font-size: 12px;
+  z-index: 2;
+}
+
+.bottom-tag {
+  position: absolute;
+  bottom: 15px;
+  left: 15px;
+  padding: 9px 14px;
+  border-radius: 30px;
+  background: #0009;
+  font-size: 12px;
+}
+
+.status {
+  margin: 20px 0;
+  padding: 15px;
+  border-radius: 13px;
+  text-align: center;
+  background: #111a2b;
+  border: 1px solid #26344e;
+  color: #b9c8e2;
+  font-size: 13px;
+}
+
+.controls {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+button {
+  border: none;
+  padding: 15px 20px;
+  border-radius: 13px;
+  color: white;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: .2s;
+}
+
+button:active {
+  transform: scale(.94);
+}
+
+button:disabled {
+  opacity: .4;
+  cursor: not-allowed;
+}
+
+.start {
+  background: linear-gradient(135deg,#527bff,#7955ef);
+  box-shadow: 0 5px 20px #526fff40;
+}
+
+.next {
+  background: #12a875;
+}
+
+.control {
+  background: #202c42;
+}
+
+.stop {
+  background: #d94353;
+}
+
+.info {
+  display: grid;
+  grid-template-columns: repeat(3,1fr);
+  gap: 12px;
+  margin-top: 25px;
+}
+
+.info-box {
+  background: #111a2b;
+  border: 1px solid #24334c;
+  border-radius: 13px;
+  padding: 15px 8px;
+  text-align: center;
+}
+
+.info-box strong {
+  display: block;
+  font-size: 19px;
+  margin-bottom: 7px;
+}
+
+.info-box span {
+  color: #8795ac;
+  font-size: 11px;
+}
+
+.notice {
+  text-align: center;
+  color: #718098;
+  font-size: 12px;
+  line-height: 1.8;
+  margin-top: 28px;
+}
+
+footer {
+  text-align: center;
+  color: #68758b;
+  padding: 25px;
+  font-size: 12px;
+  border-top: 1px solid #1d293c;
+}
+
+@media(max-width:600px) {
+  header {
+    padding: 0 17px;
+    height: 65px;
+  }
+
+  .logo {
+    font-size: 22px;
+  }
+
+  main {
+    padding: 25px 13px;
+  }
+
+  .heading h1 {
+    font-size: 23px;
+  }
+
+  .video-container {
+    aspect-ratio: 4 / 5;
+    border-radius: 17px;
+  }
+
+  button {
+    padding: 14px 15px;
+    font-size: 12px;
+  }
+
+  .controls {
+    gap: 8px;
+  }
+
+  .info {
+    gap: 7px;
+  }
+
+  .info-box {
+    padding: 13px 5px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="logo">Chatrulet<span>ls</span></div>
+  <div class="online">● ONLINE</div>
+</header>
+
+<main>
+
+  <div class="heading">
+    <h1>🌍 Meet New People</h1>
+    <p>Dunyoning istalgan joyidan yangi do‘stlar toping</p>
+  </div>
+
+  <!-- BITTA VIDEO EKRAN -->
+
+  <div class="video-container">
+
+    <div class="video-tag">🌍 Chatruletls LIVE</div>
+
+    <video id="video" autoplay muted playsinline></video>
+
+    <div class="placeholder" id="placeholder">
+      <div class="camera-icon">📹</div>
+      <h2>Video suhbatga tayyormisiz?</h2>
+      <p>Boshlash tugmasini bosing</p>
+    </div>
+
+    <div class="bottom-tag" id="videoLabel">
+      ● Kutilmoqda
+    </div>
+
+  </div>
+
+  <div class="status" id="status">
+    Suhbatni boshlash uchun tugmani bosing.
+  </div>
+
+  <!-- BOSHQARUV -->
+
+  <div class="controls">
+
+    <button class="start" id="startBtn">
+      🎥 Boshlash
+    </button>
+
+    <button class="next" id="nextBtn" disabled>
+      ⏭ Keyingi
+    </button>
+
+    <button class="control" id="micBtn" disabled>
+      🎤 Mikrofon
+    </button>
+
+    <button class="control" id="camBtn" disabled>
+      📷 Kamera
+    </button>
+
+    <button class="stop" id="stopBtn" disabled>
+      ✖ To‘xtatish
+    </button>
+
+  </div>
+
+  <div class="info">
+
+    <div class="info-box">
+      <strong>🌍</strong>
+      <span>Global chat</span>
+    </div>
+
+    <div class="info-box">
+      <strong>🎥</strong>
+      <span>Video suhbat</span>
+    </div>
+
+    <div class="info-box">
+      <strong>🔒</strong>
+      <span>Maxfiylik</span>
+    </div>
+
+  </div>
+
+  <div class="notice">
+    🔒 Kamera faqat sizning ruxsatingiz bilan ishlaydi.<br>
+    Boshqa foydalanuvchilarni hurmat qiling.<br>
+    Chatruletls © 2026
+  </div>
+
+</main>
+
+<footer>
+  Chatruletls — Meet New People 🌍
+</footer>
+
+<script>
+
+let stream = null;
+let micOn = true;
+let camOn = true;
+
+const video = document.getElementById("video");
+
+const $ = id => document.getElementById(id);
+
+async function startCamera() {
+
+  try {
+
+    $("status").textContent = "Kamera ochilmoqda...";
+
+    stream = await navigator.mediaDevices.getUserMedia({
+      video: true,
+      audio: true
+    });
+
+    video.srcObject = stream;
+    video.muted = true;
+    video.style.display = "block";
+
+    $("placeholder").style.display = "none";
+    $("videoLabel").textContent = "● Sizning kamerangiz";
+
+    $("startBtn").disabled = true;
+    $("nextBtn").disabled = false;
+    $("micBtn").disabled = false;
+    $("camBtn").disabled = false;
+    $("stopBtn").disabled = false;
+
+    $("status").textContent =
+      "Kamera tayyor! Suhbatdosh ulanishi uchun server kerak.";
+
+  } catch(error) {
+
+    $("status").textContent =
+      "Kamera ishlamadi. HTTPS orqali ochib, ruxsat bering.";
+
+  }
+
+}
+
+function toggleMic() {
+
+  if (!stream) return;
+
+  micOn = !micOn;
+
+  stream.getAudioTracks().forEach(track => {
+    track.enabled = micOn;
+  });
+
+  $("micBtn").textContent =
+    micOn ? "🎤 Mikrofon" : "🔇 O‘chiq";
+
+}
+
+function toggleCam() {
+
+  if (!stream) return;
+
+  camOn = !camOn;
+
+  stream.getVideoTracks().forEach(track => {
+    track.enabled = camOn;
+  });
+
+  $("camBtn").textContent =
+    camOn ? "📷 Kamera" : "🚫 O‘chiq";
+
+}
+
+function nextPerson() {
+
+  $("status").textContent =
+    "Yangi suhbatdosh qidirish uchun server ulanishi kerak.";
+
+}
+
+function stopCamera() {
+
+  if (stream) {
+
+    stream.getTracks().forEach(track => track.stop());
+
+    stream = null;
+
+  }
+
+  video.srcObject = null;
+  video.style.display = "none";
+
+  $("placeholder").style.display = "flex";
+  $("videoLabel").textContent = "● Kutilmoqda";
+
+  $("startBtn").disabled = false;
+  $("nextBtn").disabled = true;
+  $("micBtn").disabled = true;
+  $("camBtn").disabled = true;
+  $("stopBtn").disabled = true;
+
+  micOn = true;
+  camOn = true;
+
+  $("micBtn").textContent = "🎤 Mikrofon";
+  $("camBtn").textContent = "📷 Kamera";
+
+  $("status").textContent = "Suhbat to‘xtatildi.";
+
+}
+
+$("startBtn").onclick = startCamera;
+$("nextBtn").onclick = nextPerson;
+$("micBtn").onclick = toggleMic;
+$("camBtn").onclick = toggleCam;
+$("stopBtn").onclick = stopCamera;
+
+</script>
+
+</body>
+</html>
